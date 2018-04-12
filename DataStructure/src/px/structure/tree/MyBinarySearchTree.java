@@ -2,23 +2,23 @@ package px.structure.tree;
 
 public class MyBinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 
-	private class BinaryNode<AnyType> {
+	private class BinaryNode {
 		AnyType element;
-		BinaryNode<AnyType> left;
-		BinaryNode<AnyType> right;
+		BinaryNode left;
+		BinaryNode right;
 		
 		public BinaryNode(AnyType theElement) {
 			this(theElement, null, null);
 		}
 		
-		public BinaryNode(AnyType theElement, BinaryNode<AnyType> lt, BinaryNode<AnyType> rt) {
+		public BinaryNode(AnyType theElement, BinaryNode lt, BinaryNode rt) {
 			element = theElement;
 			left = lt;
 			right = rt;
 		}
 	}
 	
-	private BinaryNode<AnyType>	root ;
+	private BinaryNode	root ;
 	
 	public MyBinarySearchTree() {
 		root = null;
@@ -62,7 +62,7 @@ public class MyBinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		printTree(root);
 	}
 	
-	private boolean contains(AnyType x, BinaryNode<AnyType> t) {
+	private boolean contains(AnyType x, BinaryNode t) {
 		if (t == null) {
 			return false;
 		}
@@ -76,18 +76,18 @@ public class MyBinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		}
 	}
 	
-	private BinaryNode<AnyType> findMin(BinaryNode<AnyType> t) {
+	private BinaryNode findMin(BinaryNode t) {
 		if (t == null) {
 			return null;
 		} else if (t.left == null) {
-			return null;
+			return t;
 		} else {
 			return findMin(t.left);
 		}
 	}
 
 
-	private BinaryNode<AnyType> findMax(BinaryNode<AnyType> t) {
+	private BinaryNode findMax(BinaryNode t) {
 		if (t != null) {
 			while (t.right != null) {
 				t = t.right;
@@ -97,9 +97,9 @@ public class MyBinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		return null;
 	}
 	
-	private BinaryNode<AnyType> insert(AnyType x, BinaryNode<AnyType> t) {
+	private BinaryNode insert(AnyType x, BinaryNode t) {
 		if (t == null) {
-			return new BinaryNode<AnyType>(x, null, null);
+			return new BinaryNode(x);
 		}
 		int compareResult = x.compareTo(t.element);
 		if (compareResult < 0) {
@@ -107,12 +107,12 @@ public class MyBinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		} else if (compareResult > 0) {
 			t.right = insert(x, t.right);
 		} else {
-			
+			//duplicate, do nothing
 		}
 		return t;
 	}
 
-	private BinaryNode<AnyType> remove(AnyType x, BinaryNode<AnyType> t) {
+	private BinaryNode remove(AnyType x, BinaryNode t) {
 		if (t == null) {
 			return t;
 		}
@@ -130,11 +130,11 @@ public class MyBinarySearchTree<AnyType extends Comparable<? super AnyType>> {
 		return t;
 	}
 
-	private void printTree(BinaryNode<AnyType> t) {
+	private void printTree(BinaryNode t) {
 		if (t.left != null) {
 			printTree(t.left);
 		}
-		System.out.println(t.element);
+		System.out.print(t.element + "  ");
 		if (t.right != null) {
 			printTree(t.right);
 		}

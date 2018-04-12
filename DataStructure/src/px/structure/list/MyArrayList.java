@@ -32,6 +32,7 @@ public class MyArrayList<AnyType> implements Iterable<AnyType> {
 		ensureCapacity(size());
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void ensureCapacity(int newCapacity) {
 		if (newCapacity < theSize) {
 			return;

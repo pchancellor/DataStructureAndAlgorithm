@@ -18,7 +18,12 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 			this.next = next;
 		}
 	}
-	
+
+	private int theSize ;
+	private int modCount = 0;
+	private Node<AnyType> beginMarker;
+	private Node<AnyType> endMarker;
+
 	public MyLinkedList() {
 		clear();
 	}
@@ -147,10 +152,4 @@ public class MyLinkedList<AnyType> implements Iterable<AnyType> {
 			expectedModCount++;
 		}
 	}
-	
-	private int theSize ;
-	private int modCount = 0;
-	private Node<AnyType> beginMarker;
-	private Node<AnyType> endMarker;
-
 }
