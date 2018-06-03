@@ -8,9 +8,9 @@ public class HelloWorld {
 
 	public static void main(String[] args) {
 //		long val = (long) Math.pow(2, 66);
-		
+		long epoch = 1524124616338l;
 
-		long epoch = 1522734894012l;
+//		long epoch = 1522734894012l;
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTimeInMillis(epoch);
 		System.out.println(calendar.getTime());

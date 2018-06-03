@@ -1,17 +1,28 @@
 package px.structure.heap;
 
+/**
+ * 二叉堆的简单实现
+ * @author WD
+ *
+ * @param <AnyType>
+ */
 public class BinaryHeap<AnyType extends Comparable<? super AnyType>> {
 
 	public BinaryHeap() {
 		this(DEFAULT_SIZE);
 	}
 
+	@SuppressWarnings("unchecked")
 	public BinaryHeap(int capacity) {
 		array = (AnyType[]) new Comparable[capacity+1];
 	}
 
+	@SuppressWarnings("unchecked")
 	public BinaryHeap(AnyType[] elems) {
-		// TODO Auto-generated constructor stub
+		currentSize = elems.length;
+		array = (AnyType[]) new Comparable[(currentSize + 2) * 11 / 10];
+		System.arraycopy(elems, 0, array, 1, currentSize);
+		buildHeap();
 	}
 	
 	public void insert(AnyType elem) {
@@ -38,6 +49,14 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> {
 		array[1] = array[currentSize--];
 		percolateDown(1);
 		return elem;
+	}
+	
+	public void replaceMin(AnyType elem) {
+		if (isEmpty()) {
+			throw new IllegalStateException("no elem to replace");
+		}
+		array[1] = elem;
+		percolateDown(1);
 	}
 	
 	public boolean isEmpty() {
@@ -75,9 +94,12 @@ public class BinaryHeap<AnyType extends Comparable<? super AnyType>> {
 	}
 	
 	private void buildHeap() {
-		
+		for (int i = currentSize / 2; i > 0; i--) {
+			percolateDown(i);
+		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	private void enlargeArray(int newSize) {
 		AnyType[] old = array;
 		array = (AnyType[]) new Comparable[newSize];

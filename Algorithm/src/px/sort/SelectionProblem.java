@@ -1,5 +1,6 @@
 package px.sort;
 
+import px.structure.heap.BinaryHeap;
 import px.util.ArrayUtil;
 
 public class SelectionProblem {
@@ -27,10 +28,33 @@ public class SelectionProblem {
 				ArrayUtil.swapTwoValues(tempArray, j-1, j);
 			}
 		}
-		for (int i : tempArray) {
-			System.out.println(i);
-		}
 		return tempArray[k-1];
+	}
+	
+	public int selectKthBiggestValueUsingHeap(int[] array, int k) {
+		Integer[] array2 = new Integer[array.length];
+		for (int i = 0; i < array.length; i++) {
+			array2[i] = array[i];
+		}
+		BinaryHeap<Integer> binaryHeap = new BinaryHeap<>(array2);
+		for (int i = 0; i < k-1; i++) {
+			binaryHeap.deleteMin();
+		}
+		return binaryHeap.deleteMin();
+	}
+
+	public int selectKthBiggestValueUsingHeapSizeK(int[] array, int k) {
+		Integer[] array2 = new Integer[k];
+		for (int i = 0; i < array2.length; i++) {
+			array2[i] = array[i];
+		}
+		BinaryHeap<Integer> binaryHeap = new BinaryHeap<>(array2);
+		for (int i = array2.length; i < array.length; i++) {
+			if (array[i] > binaryHeap.findMin()) {
+				binaryHeap.replaceMin(array[i]);
+			}
+		}
+		return binaryHeap.findMin();
 	}
 	
 }
